@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BroTech — מוצרים שנבנים בעברית</title>
+  <meta name="description" content="BroTech Studio בונה אפליקציות, כלים ופרויקטים לנייד, לדסקטופ ולטלוויזיה — בעברית, עם פשטות ונגישות בראש.">
+  <link rel="canonical" href="https://brotech.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BroTech — מוצרים שנבנים בעברית">
+  <meta property="og:description" content="כל המוצרים והפרויקטים של BroTech Studio במקום אחד.">
+  <meta property="og:url" content="https://brotech.io/">
+  <meta name="theme-color" content="#0b0d1a">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#products">דלג לרשימת המוצרים</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="BroTech — דף הבית">
+      <span class="brand-mark" aria-hidden="true">B</span>
+      <span class="brand-name">BroTech</span>
+    </a>
+    <nav class="site-nav" aria-label="ניווט ראשי">
+      <a href="#products">מוצרים</a>
+      <a href="#about">אודות</a>
+      <a href="#contact">צור קשר</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <p class="eyebrow">BroTech Studio</p>
+      <h1 id="hero-title">מוצרים שנבנים <span class="accent-text">בעברית, קודם כל.</span></h1>
+      <p class="lead">סטודיו קטן שבונה אפליקציות, כלים ופרויקטים, עם חשיבה על פשטות, נגישות ואיכות.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#products">גלה את המוצרים</a>
+        <a class="btn btn-ghost" href="#contact">צור קשר</a>
+      </div>
+    </section>
+
+    <section id="products" class="products" aria-labelledby="products-title">
+      <div class="products-head">
+        <h2 id="products-title">המוצרים</h2>
+        <label class="search">
+          <span class="visually-hidden">חיפוש מוצר</span>
+          <input type="search" id="search" placeholder="חיפוש מוצר, תיאור או פלטפורמה…" autocomplete="off">
+        </label>
+      </div>
+
+      <div class="filters" role="group" aria-label="סינון לפי קטגוריה" id="filters"></div>
+
+      <p class="result-count" id="result-count" aria-live="polite"></p>
+      <ul class="grid" id="grid"></ul>
+      <p class="empty" id="empty" hidden>לא נמצאו מוצרים. נסו מילה אחרת.</p>
+    </section>
+
+    <section id="about" class="about" aria-labelledby="about-title">
+      <h2 id="about-title">אודות</h2>
+      <p>BroTech Studio בונה אפליקציות לנייד, לדסקטופ ולטלוויזיה, ובעיקר לקהל הישראלי. כל מוצר נבנה מהקצה לקצה: מהאפיון ועד החנות.</p>
+      <p>העיקרון המנחה: מה שלא ברור, לא מוצג כאילו הוא ברור. ומה שנבנה, צריך לעבוד טוב גם לילד בן שש וגם למבוגר עם מסך קטן.</p>
+    </section>
+
+    <section id="contact" class="contact" aria-labelledby="contact-title" hidden>
+      <h2 id="contact-title">צור קשר</h2>
+      <p><a class="btn btn-primary" id="contact-link" href="#">שלחו מייל</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> BroTech Studio · נבנה בעברית</p>
+    <p class="footer-links">
+      <a href="https://github.com/brotechstudio" rel="noopener">GitHub</a>
+    </p>
+  </footer>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
