@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BroTech — מוצרים שנבנים בעברית</title>
-  <meta name="description" content="BroTech Studio בונה אפליקציות ופרויקטים בעברית, עם פשטות ונגישות בראש.">
+  <meta name="description" content="BroTech Studio בונה אפליקציות בעברית, עם פשטות ונגישות בראש. TrackFit, מקווה ועוד.">
   <link rel="canonical" href="https://brotech.io/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="BroTech — מוצרים שנבנים בעברית">
-  <meta property="og:description" content="המוצרים של BroTech Studio במקום אחד.">
+  <meta property="og:description" content="אפליקציות בעברית, שנבנות מהקצה לקצה.">
   <meta property="og:url" content="https://brotech.io/">
   <meta name="theme-color" content="#0f0f14">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>
     // מחיל את הערכה השמורה לפני הצביעה, כדי שלא יהיה הבהוב. ברירת מחדל: כהה.
@@ -32,7 +32,10 @@
 
   <header class="site-header">
     <div class="site-header-inner">
-      <a class="brand" href="#top" aria-label="BroTech — דף הבית">BroTech</a>
+      <a class="brand" href="#top" aria-label="BroTech — דף הבית">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <span class="brand-name">BroTech</span>
+      </a>
       <div class="header-controls">
         <nav class="site-nav" aria-label="ניווט ראשי">
           <a href="#products">מוצרים</a>
@@ -46,23 +49,37 @@
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-glow" aria-hidden="true"></div>
       <p class="eyebrow">BroTech Studio</p>
-      <h1 id="hero-title">מוצרים שנבנים בעברית.</h1>
-      <p class="lead">אפליקציות ופרויקטים שנבנים מהקצה לקצה, עם פשטות, נגישות ואיכות בראש.</p>
+      <h1 id="hero-title">מוצרים שנבנים <span class="accent-text">בעברית.</span></h1>
+      <p class="lead">אפליקציות שנבנות מהקצה לקצה, עם פשטות, נגישות ואיכות בראש. בלי פשרות על חוויית המשתמש.</p>
+
+      <div class="hero-stage" aria-hidden="true">
+        <div class="device device-back" style="--accent: #66d6c5">
+          <div class="device-screen"><span>M</span></div>
+        </div>
+        <div class="device device-front" style="--accent: #f94d4d">
+          <div class="device-screen"><span>T</span></div>
+        </div>
+      </div>
     </section>
 
     <section id="products" class="products" aria-labelledby="products-title">
       <div class="section-head">
-        <h2 id="products-title">המוצרים</h2>
+        <p class="eyebrow">המוצרים</p>
+        <h2 id="products-title">כל מוצר, בלי הקדמות.</h2>
       </div>
 
-      <ul class="grid" id="grid"></ul>
+      <ol class="features" id="features"></ol>
     </section>
 
     <section id="about" class="about" aria-labelledby="about-title">
-      <h2 id="about-title">אודות</h2>
-      <p>BroTech Studio בונה אפליקציות לנייד, בעיקר לקהל הישראלי. כל מוצר נבנה מהקצה לקצה: מהאפיון ועד החנות.</p>
-      <p>העיקרון המנחה: מה שלא ברור, לא מוצג כאילו הוא ברור. ומה שנבנה, צריך לעבוד טוב גם למשתמש שמגיע בפעם הראשונה.</p>
+      <div class="about-inner">
+        <p class="eyebrow">אודות</p>
+        <h2 id="about-title">סטודיו קטן, עם יד על הדופק.</h2>
+        <p>BroTech Studio בונה אפליקציות לנייד, בעיקר לקהל הישראלי. כל מוצר נבנה מהקצה לקצה: מהאפיון, דרך העיצוב והקוד, ועד החנות.</p>
+        <p>העיקרון המנחה: מה שלא ברור, לא מוצג כאילו הוא ברור. ומה שנבנה, צריך לעבוד טוב גם למשתמש שמגיע בפעם הראשונה.</p>
+      </div>
     </section>
 
     <section id="contact" class="contact" aria-labelledby="contact-title" hidden>

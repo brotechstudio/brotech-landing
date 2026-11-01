@@ -1,4 +1,4 @@
-// רינדור רשימת המוצרים. הנתונים ב-products.js.
+// רינדור מוצרים, מצב תצוגה ויצירת קשר. הנתונים ב-products.js.
 
 // מייל ליצירת קשר. ריק = הסעיף והקישורים אליו מוסתרים.
 const CONTACT_EMAIL = "";
@@ -9,7 +9,7 @@ const STATUS = {
   "coming-soon": { label: "בקרוב", className: "status-soon" },
 };
 
-const grid = document.getElementById("grid");
+const features = document.getElementById("features");
 
 function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -18,26 +18,78 @@ function el(tag, className, text) {
   return node;
 }
 
-function renderCard(product) {
-  const li = el("li", "card");
-  li.id = product.id;
+function renderMedia(product) {
+  const wrap = el("div", "feature-media");
+  const device = el("div", "device");
+  device.style.setProperty("--accent", product.accent);
+  const screen = el("div", "device-screen");
+  device.append(screen);
+  wrap.append(device);
 
-  const titles = el("div", "card-titles");
-  titles.append(el("h3", "card-name", product.name));
-  if (product.nameHe) titles.append(el("span", "card-name-he", product.nameHe));
+  if (product.video) {
+    // סרטון תצוגה: מוצג ללא קול, בלולאה, ומתחיל לנגן רק כשהוא בתוך המסך.
+    const video = el("video", "device-video");
+    video.src = product.video;
+    if (product.poster) video.poster = product.poster;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.setAttribute("aria-label", `סרטון תצוגה של ${product.name}`);
+    screen.append(video);
+    observePlayback(video);
+    return wrap;
+  }
 
+  // עד שיש סרטון: מסגרת מכשיר עם צבע המוצר ואות ראשונה.
+  screen.setAttribute("aria-hidden", "true");
+  screen.append(el("span", null, product.name.charAt(0)));
+  return wrap;
+}
+
+function observePlayback(video) {
+  if (!("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+  io.observe(video);
+}
+
+function renderFeature(product, index) {
+  const item = el("li", index % 2 === 1 ? "feature reverse" : "feature");
+  item.id = product.id;
+  item.style.setProperty("--accent", product.accent);
+
+  const body = el("div", "feature-body");
   const status = STATUS[product.status] || STATUS["coming-soon"];
-  const top = el("div", "card-top");
-  top.append(titles, el("span", `status ${status.className}`, status.label));
+  body.append(el("span", `status ${status.className}`, status.label));
+
+  const title = el("h3", "feature-name", product.name);
+  body.append(title);
+  if (product.nameHe) body.append(el("p", "feature-name-he", product.nameHe));
+
+  body.append(el("p", "feature-tagline", product.tagline));
+
+  const highlights = el("ul", "highlights");
+  product.highlights.forEach((h) => highlights.append(el("li", null, h)));
+  body.append(highlights);
 
   const platforms = el("ul", "platforms");
   product.platforms.forEach((p) => platforms.append(el("li", "platform", p)));
+  body.append(platforms);
 
-  li.append(top, el("p", "card-desc", product.tagline), platforms);
-
-  const actions = el("div", "card-actions");
+  const actions = el("div", "feature-actions");
   if (product.url) {
-    const link = el("a", "btn btn-primary", "פתח");
+    const link = el("a", "btn btn-primary", "לאתר המוצר");
     link.href = product.url;
     link.rel = "noopener";
     link.setAttribute("aria-label", `פתח את ${product.name}`);
@@ -45,9 +97,10 @@ function renderCard(product) {
   } else {
     actions.append(el("span", "btn btn-disabled", "בקרוב"));
   }
-  li.append(actions);
+  body.append(actions);
 
-  return li;
+  item.append(renderMedia(product), body);
+  return item;
 }
 
 function setupContact() {
@@ -90,5 +143,5 @@ themeToggle.addEventListener("click", () => {
 
 document.getElementById("year").textContent = new Date().getFullYear();
 applyTheme(currentTheme());
-grid.replaceChildren(...PRODUCTS.map(renderCard));
+features.replaceChildren(...PRODUCTS.map(renderFeature));
 setupContact();
