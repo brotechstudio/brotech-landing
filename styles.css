@@ -169,7 +169,8 @@ a {
   opacity: 1;
 }
 
-.theme-toggle {
+.theme-toggle,
+.lang-toggle {
   padding: 7px 14px;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -182,7 +183,8 @@ a {
   transition: background 0.2s ease;
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover,
+.lang-toggle:hover {
   background: var(--surface-2);
 }
 
@@ -251,7 +253,7 @@ main {
 
 .hero h1 {
   margin: 0 auto 20px;
-  max-width: 14ch;
+  max-width: 18ch;
   font-size: clamp(2.8rem, 8vw, 5.6rem);
   font-weight: 800;
   line-height: 1.02;
@@ -454,6 +456,11 @@ main {
 .status-dev {
   color: var(--status-dev);
   background: var(--status-dev-bg);
+}
+
+.status-soon {
+  color: var(--text-muted);
+  background: var(--surface-2);
 }
 
 .highlights {
