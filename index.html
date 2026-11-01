@@ -10,12 +10,22 @@
   <meta property="og:title" content="BroTech — מוצרים שנבנים בעברית">
   <meta property="og:description" content="המוצרים של BroTech Studio במקום אחד.">
   <meta property="og:url" content="https://brotech.io/">
-  <meta name="theme-color" content="#f5f5f7">
+  <meta name="theme-color" content="#0f0f14">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // מחיל את הערכה השמורה לפני הצביעה, כדי שלא יהיה הבהוב. ברירת מחדל: כהה.
+    (function () {
+      try {
+        if (localStorage.getItem("brotech-theme") === "light") {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#products">דלג לרשימת המוצרים</a>
@@ -23,11 +33,14 @@
   <header class="site-header">
     <div class="site-header-inner">
       <a class="brand" href="#top" aria-label="BroTech — דף הבית">BroTech</a>
-      <nav class="site-nav" aria-label="ניווט ראשי">
-        <a href="#products">מוצרים</a>
-        <a href="#about">אודות</a>
-        <a href="#contact">צור קשר</a>
-      </nav>
+      <div class="header-controls">
+        <nav class="site-nav" aria-label="ניווט ראשי">
+          <a href="#products">מוצרים</a>
+          <a href="#about">אודות</a>
+          <a href="#contact">צור קשר</a>
+        </nav>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="החלפת מצב תצוגה">מצב בהיר</button>
+      </div>
     </div>
   </header>
 
