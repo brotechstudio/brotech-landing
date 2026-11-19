@@ -250,9 +250,14 @@ main {
   font-weight: 700;
   line-height: 0.98;
   letter-spacing: -0.055em;
+  background: linear-gradient(180deg, var(--text) 35%, color-mix(in srgb, var(--text) 55%, transparent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .dot {
+  -webkit-text-fill-color: var(--accent);
   color: var(--accent);
 }
 
@@ -318,11 +323,50 @@ main {
 }
 
 .hero-stage {
+  position: relative;
   margin-top: clamp(48px, 8vw, 80px);
+}
+
+/* טבעות דקות מאחורי המכשיר, כמו תאורת במה. */
+.hero-stage::before,
+.hero-stage::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  top: 50%;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero-stage::before {
+  width: min(560px, 120vw);
+  aspect-ratio: 1;
+}
+
+.hero-stage::after {
+  width: min(780px, 150vw);
+  aspect-ratio: 1;
+  opacity: 0.5;
 }
 
 .hero-stage .device {
   animation: float 8s ease-in-out infinite;
+  box-shadow:
+    inset 0 0 0 2px #2a2a36,
+    inset 0 0 40px rgba(255, 255, 255, 0.04),
+    0 60px 100px -40px color-mix(in srgb, var(--accent) 60%, transparent),
+    0 24px 48px -24px rgba(0, 0, 0, 0.7);
+}
+
+.hero-stage .device-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.14) 50%, transparent 65%);
+  pointer-events: none;
 }
 
 @keyframes float {
@@ -383,9 +427,12 @@ main {
   flex-direction: column;
   justify-content: space-between;
   gap: 44px;
-  min-height: 220px;
+  min-height: 230px;
   padding: clamp(28px, 4vw, 40px);
-  background: var(--surface);
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%),
+    var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   animation: rise 0.7s ease both;
   animation-delay: var(--delay, 0ms);
@@ -396,11 +443,19 @@ main {
   transform: translateY(-3px);
 }
 
-.tile-index {
+.tile-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
   color: var(--accent);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+}
+
+.tile-icon svg {
+  width: 26px;
+  height: 26px;
 }
 
 .tile-text {
@@ -409,6 +464,99 @@ main {
   font-weight: 600;
   line-height: 1.22;
   letter-spacing: -0.025em;
+}
+
+/* ---------- Product house: כרטיסי המוצרים ---------- */
+
+.products-home {
+  max-width: var(--max);
+  margin: clamp(96px, 14vw, 160px) auto 0;
+  padding: 0 22px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 720px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: clamp(28px, 4vw, 40px);
+  min-height: 420px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%),
+    var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  animation: rise 0.7s ease both;
+}
+
+.product-card-name {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.product-card-desc {
+  margin: 0;
+  max-width: 34ch;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.product-card-device {
+  position: absolute;
+  inset-inline-end: -40px;
+  bottom: -60px;
+  display: grid;
+  place-items: center;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent), transparent 70%);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.product-card-device span {
+  color: #fff;
+  font-size: 9rem;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  opacity: 0.9;
+}
+
+.product-card .btn {
+  margin-top: auto;
+  position: relative;
+}
+
+.product-card-next {
+  background: transparent;
+  border: 1px dashed var(--line);
+  animation-delay: 120ms;
+}
+
+.product-card-next .product-card-name {
+  color: var(--text-muted);
 }
 
 /* ---------- Availability ---------- */
@@ -429,7 +577,14 @@ main {
   gap: 16px;
   padding: 24px 28px;
   background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.avail-item:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  transform: translateY(-2px);
 }
 
 .avail-info {

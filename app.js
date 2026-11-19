@@ -5,7 +5,7 @@ const CONTACT_EMAIL = "";
 
 const STRINGS = {
   he: {
-    title: "TrackFit — BroTech",
+    title: "BroTech — בית למוצרים",
     brandAria: "BroTech — דף הבית",
     navAria: "ניווט ראשי",
     skip: "דלג לתוכן",
@@ -16,8 +16,16 @@ const STRINGS = {
     langToggle: "English",
     themeToLight: "מצב בהיר",
     themeToDark: "מצב כהה",
-    heroEyebrow: "מוצג על ידי BroTech",
-    heroLead: "מעקב תזונה למוצרים ישראליים. רושמים ארוחה בטקסט חופשי בעברית.",
+    heroEyebrow: "BroTech Studio",
+    heroLead: "בית למוצרים שנבנים בקפידה. אפליקציות לנייד, עם פשטות, נגישות ואיכות בראש.",
+    ctaProducts: "לכל המוצרים",
+    productsEyebrow: "המוצרים",
+    productsTitle: "כל המוצרים שלנו.",
+    productDetails: "לפרטים",
+    nextName: "המוצר הבא",
+    nextText: "בדרך. נעדכן כאן כשיהיה מוכן.",
+    liveStatus: "פעיל",
+    soonStatus: "בקרוב",
     ctaOpen: "פתיחה ב-Web",
     ctaSoon: "iOS ו-Android: בקרוב",
     featuresEyebrow: "תכונות",
@@ -38,7 +46,7 @@ const STRINGS = {
     rights: "כל הזכויות שמורות.",
   },
   en: {
-    title: "TrackFit — BroTech",
+    title: "BroTech — A home for products",
     brandAria: "BroTech — home",
     navAria: "Main navigation",
     skip: "Skip to content",
@@ -49,8 +57,16 @@ const STRINGS = {
     langToggle: "עברית",
     themeToLight: "Light",
     themeToDark: "Dark",
-    heroEyebrow: "A BroTech product",
-    heroLead: "Nutrition tracking for Israeli food products. Log a meal in free text, in Hebrew.",
+    heroEyebrow: "BroTech Studio",
+    heroLead: "A home for products built with care. Mobile apps, with simplicity, accessibility and quality in mind.",
+    ctaProducts: "All products",
+    productsEyebrow: "Products",
+    productsTitle: "Our products.",
+    productDetails: "Details",
+    nextName: "Next product",
+    nextText: "On the way. We will update this page when it is ready.",
+    liveStatus: "Live",
+    soonStatus: "Coming soon",
     ctaOpen: "Open on the Web",
     ctaSoon: "iOS & Android: coming soon",
     featuresEyebrow: "Features",
@@ -76,7 +92,7 @@ const root = document.documentElement;
 const themeToggle = document.getElementById("theme-toggle");
 const langToggle = document.getElementById("lang-toggle");
 const heroStage = document.getElementById("hero-stage");
-const heroCta = document.getElementById("hero-cta");
+const productGrid = document.getElementById("product-grid");
 const tiles = document.getElementById("tiles");
 const availList = document.getElementById("avail-list");
 
@@ -137,11 +153,26 @@ function observePlayback(video) {
   io.observe(video);
 }
 
+// אייקוני קו קטנים, בסגנון אחיד, לכל אריח לפי הסדר.
+const ICON_PATHS = [
+  '<path d="M4 20h4l10.5-10.5a2.8 2.8 0 0 0-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/>',
+  '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>',
+  '<path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 15l4-4 3 3 5-6"/>',
+  '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/>',
+];
+
+function renderIcon(index) {
+  const span = el("span", "tile-icon");
+  span.setAttribute("aria-hidden", "true");
+  span.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICON_PATHS[index % ICON_PATHS.length]}</svg>`;
+  return span;
+}
+
 function renderTiles(product, lang) {
   return product.highlights[lang].map((text, i) => {
     const tile = el("li", "tile");
     tile.style.setProperty("--delay", `${i * 80}ms`);
-    tile.append(el("span", "tile-index", String(i + 1).padStart(2, "0")), el("p", "tile-text", text));
+    tile.append(renderIcon(i), el("p", "tile-text", text));
     return tile;
   });
 }
@@ -202,12 +233,42 @@ function applyLang(lang) {
   langToggle.textContent = t.langToggle;
   applyTheme(currentTheme());
 
-  const liveTarget = product.availability.find((a) => a.status === "live" && a.url);
-  if (liveTarget) heroCta.href = liveTarget.url;
-
   heroStage.replaceChildren(renderDevice(product, t));
+  productGrid.replaceChildren(renderProductCard(product, t), renderNextCard(t));
   tiles.replaceChildren(...renderTiles(product, lang));
   availList.replaceChildren(...renderAvailability(product, t));
+}
+
+// כרטיס מוצר בבית המוצרים, ומקום שמור למוצר הבא.
+function renderProductCard(product, t) {
+  const card = el("li", "product-card");
+  card.style.setProperty("--accent", product.accent);
+
+  const isLive = product.availability.some((a) => a.status === "live");
+  const status = el("span", `avail-status ${isLive ? "status-live" : "status-soon"}`, isLive ? t.liveStatus : t.soonStatus);
+
+  const device = el("div", "product-card-device");
+  device.setAttribute("aria-hidden", "true");
+  device.append(el("span", null, product.name.charAt(0)));
+
+  card.append(
+    status,
+    el("h3", "product-card-name", product.name),
+    el("p", "product-card-desc", product.tagline[currentLang()]),
+    device
+  );
+
+  const link = el("a", "btn btn-primary btn-small", t.productDetails);
+  link.href = `#${product.id}`;
+  link.setAttribute("aria-label", `${t.productDetails} — ${product.name}`);
+  card.append(link);
+  return card;
+}
+
+function renderNextCard(t) {
+  const card = el("li", "product-card product-card-next");
+  card.append(el("h3", "product-card-name", t.nextName), el("p", "product-card-desc", t.nextText));
+  return card;
 }
 
 function applyTheme(theme) {
