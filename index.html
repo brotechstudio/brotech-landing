@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BroTech</title>
-  <meta name="description" content="BroTech Studio builds apps, with simplicity, accessibility and quality in mind. TrackFit, Mikveh and more.">
+  <title>TrackFit — BroTech</title>
+  <meta name="description" content="TrackFit by BroTech Studio: nutrition tracking for Israeli food products. Log meals in free-text Hebrew.">
   <link rel="canonical" href="https://brotech.io/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="BroTech — Products built with care">
-  <meta property="og:description" content="Apps built end to end.">
+  <meta property="og:title" content="TrackFit — BroTech">
+  <meta property="og:description" content="Nutrition tracking for Israeli food products.">
   <meta property="og:url" content="https://brotech.io/">
   <meta name="theme-color" content="#0f0f14">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>
     // לפני הצביעה: מחיל את השפה והמצב השמורים, כדי שלא יהיה הבהוב. ברירת מחדל: עברית, כהה.
@@ -31,7 +31,7 @@
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#products" data-i18n="skip">Skip to products</a>
+  <a class="skip-link" href="#main" data-i18n="skip">דלג לתוכן</a>
 
   <header class="site-header">
     <div class="site-header-inner">
@@ -39,62 +39,62 @@
         <span class="brand-mark" aria-hidden="true">B</span>
         <span class="brand-name">BroTech</span>
       </a>
+      <nav class="site-nav" aria-label="ניווט ראשי" data-i18n-aria="navAria">
+        <a href="#trackfit" data-i18n="navProduct">TrackFit</a>
+        <a href="#availability" data-i18n="navAvailability">זמינות</a>
+        <a href="#about" data-i18n="navAbout">אודות</a>
+      </nav>
       <div class="header-controls">
-        <nav class="site-nav" aria-label="Main navigation" data-i18n-aria="navAria">
-          <a href="#products" data-i18n="navProducts">Products</a>
-          <a href="#about" data-i18n="navAbout">About</a>
-          <a href="#contact" data-i18n="navContact">Contact</a>
-        </nav>
-        <button type="button" class="lang-toggle" id="lang-toggle" data-i18n="langToggle">עברית</button>
-        <button type="button" class="theme-toggle" id="theme-toggle">Light</button>
+        <button type="button" class="lang-toggle" id="lang-toggle">English</button>
+        <button type="button" class="theme-toggle" id="theme-toggle">מצב בהיר</button>
       </div>
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-glow" aria-hidden="true"></div>
-      <p class="eyebrow">BroTech Studio</p>
-      <h1 id="hero-title" data-i18n="heroTitle">Products, built with care.</h1>
-      <p class="lead" data-i18n="heroLead">Apps built end to end, with simplicity, accessibility and quality in mind. No compromises on the user experience.</p>
-
-      <div class="hero-stage" aria-hidden="true">
-        <div class="device device-back" style="--accent: #66d6c5">
-          <div class="device-screen"><span>M</span></div>
-        </div>
-        <div class="device device-front" style="--accent: #f94d4d">
-          <div class="device-screen"><span>T</span></div>
-        </div>
+  <main id="main">
+    <section id="top" class="hero" aria-labelledby="hero-title">
+      <p class="eyebrow" data-i18n="heroEyebrow">מוצג על ידי BroTech</p>
+      <h1 id="hero-title" class="hero-title">TrackFit<span class="dot">.</span></h1>
+      <p class="lead" data-i18n="heroLead">מעקב תזונה למוצרים ישראליים. רושמים ארוחה בטקסט חופשי בעברית.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" id="hero-cta" href="#availability" data-i18n="ctaOpen">פתיחה ב-Web</a>
+        <span class="btn btn-soon" data-i18n="ctaSoon">iOS ו-Android: בקרוב</span>
       </div>
+      <div class="hero-stage" id="hero-stage"></div>
     </section>
 
-    <section id="products" class="products" aria-labelledby="products-title">
+    <section id="trackfit" class="features" aria-labelledby="features-title">
       <div class="section-head">
-        <p class="eyebrow" data-i18n="productsEyebrow">Products</p>
-        <h2 id="products-title" data-i18n="productsTitle">Each product, no fuss.</h2>
+        <p class="eyebrow" data-i18n="featuresEyebrow">תכונות</p>
+        <h2 id="features-title" data-i18n="featuresTitle">מה המערכת עושה.</h2>
       </div>
+      <ul class="tiles" id="tiles"></ul>
+    </section>
 
-      <ol class="features" id="features"></ol>
+    <section id="availability" class="availability" aria-labelledby="availability-title">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="availEyebrow">זמינות</p>
+        <h2 id="availability-title" data-i18n="availTitle">זמין ב.</h2>
+      </div>
+      <ul class="avail-list" id="avail-list"></ul>
     </section>
 
     <section id="about" class="about" aria-labelledby="about-title">
-      <div class="about-inner">
-        <p class="eyebrow" data-i18n="aboutEyebrow">About</p>
-        <h2 id="about-title" data-i18n="aboutTitle">A small studio, close to the ground.</h2>
-        <p data-i18n="aboutP1">BroTech Studio builds mobile apps, mainly for Israeli users. Every product is built end to end: from the spec, through design and code, to the store.</p>
-        <p data-i18n="aboutP2">Our guiding principle: what is not clear is not presented as if it were. And what we build has to work well for someone opening it for the first time.</p>
-      </div>
+      <p class="eyebrow" data-i18n="aboutEyebrow">אודות</p>
+      <h2 id="about-title" data-i18n="aboutTitle">BroTech Studio.</h2>
+      <p data-i18n="aboutP1">BroTech Studio בונה אפליקציות לנייד, בעיקר לקהל הישראלי. כל מוצר נבנה מהקצה לקצה: מהאפיון, דרך העיצוב והקוד, ועד החנות.</p>
+      <p data-i18n="aboutP2">העיקרון המנחה: מה שלא ברור, לא מוצג כאילו הוא ברור. ומה שנבנה, צריך לעבוד טוב גם למשתמש שמגיע בפעם הראשונה.</p>
     </section>
 
     <section id="contact" class="contact" aria-labelledby="contact-title" hidden>
-      <h2 id="contact-title" data-i18n="contactTitle">Contact</h2>
-      <p><a class="btn btn-primary" id="contact-link" href="#" data-i18n="contactCta">Send an email</a></p>
+      <h2 id="contact-title" data-i18n="contactTitle">צור קשר</h2>
+      <p><a class="btn btn-primary" id="contact-link" href="#" data-i18n="contactCta">שלחו מייל</a></p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="site-footer-inner">
-      <p>© <span id="year"></span> BroTech Studio. <span data-i18n="rights">All rights reserved.</span></p>
+      <p>© <span id="year"></span> BroTech Studio. <span data-i18n="rights">כל הזכויות שמורות.</span></p>
       <p class="footer-links">
         <a href="https://github.com/brotechstudio" rel="noopener">GitHub</a>
       </p>
